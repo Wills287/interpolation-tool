@@ -3,7 +3,10 @@ package wills.interpolation.helper;
 import org.junit.jupiter.api.Test;
 import wills.interpolation.model.Point;
 
+import java.math.BigDecimal;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -103,5 +106,47 @@ public class DataProcessingHelperTest {
         assertEquals(2, points.size());
         assertTrue(points.contains(new Point(1, 2)));
         assertTrue(points.contains(new Point(2, 1)));
+    }
+
+    @Test
+    public void shouldCalculateAverageFromTwoValues() {
+        Set<Point> points = Stream.of(
+                new Point(0, 0),
+                new Point(0, 1)
+        ).collect(Collectors.toSet());
+        String[][] dataset = new String[][]{{"59.865848", "70.807258"}};
+
+        BigDecimal result = helper.getAverage(points, dataset);
+
+        assertEquals(0, result.compareTo(new BigDecimal("65.336553")));
+    }
+
+    @Test
+    public void shouldCalculateAverageFromThreeValues() {
+        Set<Point> points = Stream.of(
+                new Point(0, 0),
+                new Point(0, 1),
+                new Point(0, 2)
+        ).collect(Collectors.toSet());
+        String[][] dataset = new String[][]{{"2.058449", "30.424224", "61.185289"}};
+
+        BigDecimal result = helper.getAverage(points, dataset);
+
+        assertEquals(0, result.compareTo(new BigDecimal("31.222654")));
+    }
+
+    @Test
+    public void shouldCalculateAverageFromFourValues() {
+        Set<Point> points = Stream.of(
+                new Point(0, 0),
+                new Point(0, 1),
+                new Point(0, 2),
+                new Point(0, 3)
+        ).collect(Collectors.toSet());
+        String[][] dataset = new String[][]{{"86.617615", "96.990985", "21.233911", "52.475643"}};
+
+        BigDecimal result = helper.getAverage(points, dataset);
+
+        assertEquals(0, result.compareTo(new BigDecimal("64.3295385")));
     }
 }

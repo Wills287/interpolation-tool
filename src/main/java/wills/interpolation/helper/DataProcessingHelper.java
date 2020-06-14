@@ -3,6 +3,7 @@ package wills.interpolation.helper;
 import org.springframework.stereotype.Component;
 import wills.interpolation.model.Point;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,5 +29,13 @@ public class DataProcessingHelper {
             points.add(new Point(x, y + 1));
         }
         return points;
+    }
+
+    public BigDecimal getAverage(Set<Point> points, String[][] dataset) {
+        BigDecimal average = BigDecimal.ZERO;
+        for (Point point : points) {
+            average = average.add(new BigDecimal(dataset[point.getX()][point.getY()]));
+        }
+        return average.divide(BigDecimal.valueOf(points.size()));
     }
 }
