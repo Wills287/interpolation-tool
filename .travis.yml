@@ -31,7 +31,7 @@ jobs:
         - echo "Building JAR and testing"
         - mvn clean verify -B
 
-    - stage: build-publish-deploy
+    - stage: build-publish
       name: "Build JAR and test for branch - Publish image to Docker Hub"
       cache:
         directories:
